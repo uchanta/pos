@@ -22,5 +22,6 @@ The structure of the requiest
 ORIGINAL              |     UPDATED
 :----------------------------:|:--------------------------:
 ** original screenshot  **    |    ** updated screenshot **
+
 ---->
 
