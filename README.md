@@ -1,6 +1,6 @@
 # pos
 Create POS System - Inventory &amp; sales with PHP 7 &amp; adminLTE (Udemy)
-
+<------
 The structure of the requiest
 # RELATE ISSUE
 - issue goes here
@@ -21,5 +21,5 @@ The structure of the requiest
 ORIGINAL              |     UPDATED
 :----------------------------:|:--------------------------:
 ** original screenshot  **    |    ** updated screenshot **
-
+---->
 
