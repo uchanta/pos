@@ -29,9 +29,9 @@
           <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar</button>
         </div>
       </div>
-      <?php  
+      <?php 
         $login = new ControladorUsuarios();
-        $login -> crtIngresoUsuario();
+        $login -> ctrIngresoUsuario();
 
 
       ?>

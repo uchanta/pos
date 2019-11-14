@@ -1,17 +1,15 @@
 <?php
-class Cinexion{
+class Conexion{
 	public function conectar(){
-		$slink = new PDO("mysql:host;dbname=pos", "root","");
+		$link = new PDO("mysql:host=localhost;dbname=pos", 
+			             "root",
+			             "");
 
-		$link ->exec("set na,es utf8");
+		$link->exec("set names utf8");
 
 		return $link;
 
 	}
-
-
 }
-
-
 
 ?>
