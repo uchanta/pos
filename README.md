@@ -1,5 +1,6 @@
 # pos
 Create POS System - Inventory &amp; sales with PHP 7 &amp; adminLTE (Udemy)
+
 <------
 The structure of the requiest
 # RELATE ISSUE
