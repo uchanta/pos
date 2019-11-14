@@ -25,3 +25,6 @@ ORIGINAL              |     UPDATED
 
 ---->
 
+Good referenci to follow up the issues ina a project
+https://youtu.be/ff5cBkPg-bQ
+
