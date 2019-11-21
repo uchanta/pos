@@ -18,7 +18,7 @@
 
       <div class="box-header with-border">
 
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">Agragar usuario</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">Agregar usuario</button>
 
       </div>
 
@@ -29,7 +29,7 @@
         <table class="table table-bordered table-striped dt-responsive tablas">
           <thead>
             <tr>
-              <th>#</th>
+              <th style="width:10px">#</th>
               <th>Nombre</th>
               <th>Usuario</th>
               <th>Foto</th>
@@ -40,53 +40,46 @@
             </tr>
           </thead>
 
+<!-- Cuerpo de la tabla -->
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Usuario Administrador</td>
-              <td>admin</td>
-              <td><img src="img/usuarios/default/anonimous.jpg" class="img-thumbnail" width="40px"></td>
-              <td>Administrator</td>
-              <td><button class="btn btn-success btn-xs">Activado</button></td>
-              <td>2017-12-11 12:05:32</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-              <tr>
+            <?php 
+              $item = null;
+              $valor = null;
 
-              <td>1</td>
-              <td>Usuario Administrador</td>
-              <td>admin</td>
-              <td><img src="img/usuarios/default/anonimous.jpg" class="img-thumbnail" width="40px"></td>
-              <td>Administrator</td>
-              <td><button class="btn btn-success btn-xs">Activado</button></td>
-              <td>2017-12-11 12:05:32</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-              <tr>
+              $usuarios = ControladorUsuarios::crtMostrarUsuarios($item, $valor);
 
-              <td>1</td>
-              <td>Usuario Administrador</td>
-              <td>admin</td>
-              <td><img src="img/usuarios/default/anonimous.jpg" class="img-thumbnail" width="40px"></td>
-              <td>Administrator</td>
-              <td><button class="btn btn-danger btn-xs">Desactivado</button></td>
-              <td>2017-12-11 12:05:32</td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-              
-            </tr>
+              foreach ($usuarios as $key => $value){
+               
+                      echo '<tr>
+                        <td>'.$value["id"].'</td>
+                        <td>'.$value["nombre"].'</td>
+                        <td>'.$value["usuario"].'</td>';
+                        if($value["foto"] != ""){
+                            echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" wiDth="40px"></td>';
+                        }else{
+                           echo '<td><img src="img/usuarios/default/anonimous.jpg" class="img-thumbnail" width="40px"></td>';
+                        }
+                      
+                        echo '<td>'.$value["perfil"].'</td>
+                        <td><button class="btn btn-success btn-xs">Activado</button></td>
+                        <td>'.$value["ultimo_login"].'</td>
+                        <td>
+
+                         <div class="btn-group">
+
+                            <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id'].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
+
+                            <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+
+                         </div>
+                        </td>
+                      </tr>';
+
+
+              }
+
+            ?>
+
           </tbody>
           
         </table>
@@ -99,8 +92,9 @@
 
 </div>
 
-<!-- MODAL AGREGAR USUARIO https://www.w3schools.com/bootstrap/bootstrap_modal.asp-->
-<!-- ESTA FORMA SE ABRE AL OPRIMIR EL BOTON DE AGREGAR USUARIO EN LA PANTALLA DE ADM-USR -->
+<!-- MODAL AGREGAR USUARIO -->
+
+
 <div id="modalAgregarUsuario" class="modal fade" role="dialog">
 
   <div class="modal-dialog">
@@ -128,7 +122,7 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar nombre" required>
+                <input type="text" class="form-control input-lg" placeholder="Ingresar nombre" required>
               </div>
             </div>
 
@@ -136,7 +130,7 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar usuario" required>
+                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresa usuario" required>
               </div>
             </div>
 
@@ -144,7 +138,7 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar password" required>
+                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
               </div>
             </div>
 
@@ -163,24 +157,117 @@
 
             <!-- ENTRADA PARA SUBIR FOTO -->
             <div class="form-group">
-              <div clas="panel">Subir foto</div>
-              <input type="file" id="nuevaFoto" name="nuevaFoto">
-              <p class="help-block">Peso maximo de la foto 200 Mb</p>
-              <img src="img/usuarios/default/anonimous.jpg" class="img-thumbnail" width="100px">
+              <div class="panel">SUBIR FOTO</div>
+              <input type="file" class="nuevaFoto" name="nuevaFoto">
+              <p class="help-block">Peso maximo de la foto 2Mb</p>
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
 
             </div>
-
-
           </div>
         </div>
 
         <!-- PIE DEL MODAL  -->
         <div class="modal-footer">
-
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
           <button type="submit" class="btn btn-primary">Guardar usuario</button>
+        </div>
+
+        <?php
+          $crearUsuario = new ControladorUsuarios();
+          $crearUsuario -> crtCrearUsuario();
+        ?>
+
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL EDITAR USUARIO -->
+
+
+<div id="modalEditarUsuario" class="modal fade" role="dialog">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <form role="form" method="post" enctype="multipart/form-data">
+
+        <!-- cabeza del modal -->
+
+        <div class="modal-header" style="background:#3c8dbc; color:white" >
+          
+        </style>
+
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h4 class="modal-title">Editar usuario</h4>
 
         </div>
+
+        <!-- MODAL BODY -->
+        <!-- ENTRADA PARA EL NOMBRE -->
+        <div class="modal-body">
+          <div class="box-body">
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" class="form-control input-lg" name="editarNombre" value="" required>
+              </div>
+            </div>
+
+            <!-- ENTRADA PARA EL USUARIO -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" class="form-control input-lg" name="editarUsuario" value="" required>
+              </div>
+            </div>
+
+            <!-- ENTRADA PARA LA CONTRASEÑAO -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escribir nueva contraseña" required>
+              </div>
+            </div>
+
+            <!-- seleccionar el perfil -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                <select class="form-control input-lg" name="editarPerfil">
+                  <option value="" id="editarPerfil"></option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Especial">Especial</option>
+                  <option value="Vendedor">Vendedor</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- ENTRADA PARA SUBIR FOTO -->
+            <div class="form-group">
+              <div class="panel">SUBIR FOTO</div>
+              <input type="file" class="nuevaFoto" name="editarFoto">
+              <p class="help-block">Peso maximo de la foto 2Mb</p>
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
+
+            </div>
+          </div>
+        </div>
+
+        <!-- PIE DEL MODAL  -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+          <button type="submit" class="btn btn-primary">Modificar usuario</button>
+        </div>
+  <!--       
+        <?php
+          $crearUsuario = new ControladorUsuarios();
+          $crearUsuario -> crtCrearUsuario();
+         ?> -->
 
       </form>
     </div>

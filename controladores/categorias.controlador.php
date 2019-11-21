@@ -1,6 +1,6 @@
 <?php
 
-
+/*
 class ControladorPlantilla{
 
 	public function ctrPlantilla(){
@@ -10,3 +10,4 @@ class ControladorPlantilla{
 	}
 
 }
+*/

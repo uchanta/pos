@@ -38,9 +38,15 @@
 				<li class="dropdownn user user-menu">
 					
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<?php 
+							if($_SESSION["foto"] != ""){
+								echo '<img src="'.$_SESSION["foto"].'" class"user-image" height="30" width="30">';
+							}else{
+								echo '<img src="img/usuarios/default/anonimous.jpg" class="user-image">';
+							}
+						 ?>
 
-						<img src="img/usuarios/default/anonimous.jpg" class="user-image">
-						<span class="hidden-xs">Usuario Administrador</span>
+						<span class="hidden-xs"><?php echo $_SESSION["nombre"] ?></span>
 					</a>
 
 					<!-- Dropdown-toggle -->
