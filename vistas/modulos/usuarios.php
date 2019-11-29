@@ -45,8 +45,8 @@
             <?php 
               $item = null;
               $valor = null;
-
-              $usuarios = ControladorUsuarios::crtMostrarUsuarios($item, $valor);
+// ctr en lugar de crt ?????
+              $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
 
               foreach ($usuarios as $key => $value){
                
@@ -54,20 +54,30 @@
                         <td>'.$value["id"].'</td>
                         <td>'.$value["nombre"].'</td>
                         <td>'.$value["usuario"].'</td>';
+
                         if($value["foto"] != ""){
-                            echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" wiDth="40px"></td>';
+                            echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
                         }else{
-                           echo '<td><img src="img/usuarios/default/anonimous.jpg" class="img-thumbnail" width="40px"></td>';
+                           echo '<td><img src="vistas/usuarios/default/anonimous.jpg" class="img-thumbnail" width="40px"></td>';
                         }
                       
-                        echo '<td>'.$value["perfil"].'</td>
-                        <td><button class="btn btn-success btn-xs">Activado</button></td>
-                        <td>'.$value["ultimo_login"].'</td>
+                        echo '<td>'.$value["perfil"].'</td>';
+
+                        if($value["estado"] != 0){
+
+                        echo '<td><button class="btn btn-success btn-xs btnActivar" idUsuario="'.$value["id"].'" estadoUsuario="0">Activado</button></td>';
+
+                        }else{
+
+                          echo '<td><button class="btn btn-danger btn-xs btnActivar" idUsuario="'.$value["id"].'" estadoUsuario="1">Desactivado</button></td>';
+                        }
+                        
+                        echo '<td>'.$value["ultimo_login"].'</td>
                         <td>
 
                          <div class="btn-group">
 
-                            <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value['id'].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-warning btnEditarUsuario" idUsuario="'.$value["id"].'" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
 
                             <button class="btn btn-danger"><i class="fa fa-times"></i></button>
 
@@ -106,8 +116,6 @@
 
         <div class="modal-header" style="background:#3c8dbc; color:white" >
           
-        </style>
-
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Agregar usuario</h4>
@@ -192,14 +200,12 @@
   <div class="modal-dialog">
 
     <div class="modal-content">
-      <form role="form" method="post" enctype="multipart/form-data">
+      <form role="form" method="POST" enctype="multipart/form-data">
 
         <!-- cabeza del modal -->
 
         <div class="modal-header" style="background:#3c8dbc; color:white" >
           
-        </style>
-
           <button type="button" class="close" data-dismiss="modal">&times;</button>
 
           <h4 class="modal-title">Editar usuario</h4>
@@ -214,23 +220,25 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control input-lg" name="editarNombre" value="" required>
+                <input type="text" class="form-control input-lg" id="editarNombre" value="" name="editarNombre" placeholder="Editar nombre" required>
               </div>
             </div>
 
-            <!-- ENTRADA PARA EL USUARIO -->
+            <!-- ENTRADA PARA EL USUARIO user name -->
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" class="form-control input-lg" name="editarUsuario" value="" required>
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" pleaceHolder="Editar usuario" readonly>
               </div>
             </div>
 
-            <!-- ENTRADA PARA LA CONTRASEÑAO -->
+            <!-- ENTRADA PARA LA CONTRASEÑA -->
+            <!-- Passowr tenia la opción required, y esto obligaba a cambiar el password -->
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escribir nueva contraseña" required>
+                <input type="password" class="form-control input-lg" name="editarPassword" placeholder="Escribir la nueva contraseña">
+                <input type="hidden" name="passwordActual" id="passwordActual">
               </div>
             </div>
 
@@ -252,7 +260,9 @@
               <div class="panel">SUBIR FOTO</div>
               <input type="file" class="nuevaFoto" name="editarFoto">
               <p class="help-block">Peso maximo de la foto 2Mb</p>
-              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar"alt="" width="100px">
+
+              <input type="hidden" name="fotoActual" id="fotoActual">
 
             </div>
           </div>
@@ -263,11 +273,11 @@
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
           <button type="submit" class="btn btn-primary">Modificar usuario</button>
         </div>
-  <!--       
+  
         <?php
-          $crearUsuario = new ControladorUsuarios();
-          $crearUsuario -> crtCrearUsuario();
-         ?> -->
+          $editarUsuario = new ControladorUsuarios();
+          $editarUsuario -> ctrEditarUsuario();
+         ?> 
 
       </form>
     </div>
