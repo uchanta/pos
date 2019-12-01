@@ -1,0 +1,9 @@
+REQUERIMIENTOS PARA EL USO DEL SISTEMA
+- Internet explorer 11 o superiores
+- Internet browser Firefox v70.0.1 
+- Internet browser Crome v78.0.3904.108
+- windows 10 o superiores
+- XAMPP v2.3.4 Apache
+
+
+

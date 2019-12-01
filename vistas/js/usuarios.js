@@ -103,7 +103,18 @@ $(document).on("click", ".btnActivar", function(){
 		contentType: false,
 		processData: false,
 		success: function(respuesta){
-
+		// para el caso de tamaños pequeños de pantalla como celulares no funciona bien		}
+		if(window.matchMedia("(max-width:767px)").matches){
+			Swal.fire({
+				icon: "success",
+				title: "El usuario ha sido activado",
+				confirmButtonText: "¡Cerrar!"
+				}).then(function(result){
+					if(result.value){
+						window.location = "usuarios";
+					}
+				});
+			}
 		}
 	})
 
@@ -188,8 +199,8 @@ $(document).on("click", ".btnEliminarUsuario", function(){
 		cancelButtonColor: "#d33",
 		confirmButtonColor: "#3085d6"
 			
-		
-	}).then((result)=>{
+	// }).then((result)=>{	por el error de internet explorer
+	}).then(function(result){
 			if(result.value){
 				window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&fotoUsuario="+fotoUsuario;
 			}
