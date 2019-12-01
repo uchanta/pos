@@ -29,10 +29,30 @@ class ControladorUsuarios{
 						$_SESSION["foto"] = $respuesta["foto"];
 						$_SESSION["perfil"] = $respuesta["perfil"];
 
-						echo '<script>
-	                        window.location = "inicio";
+						/*=============================================
+						=    REGISTRAR LA FECHA DEL ULTIMO LOGIN
+						https://www.php.net/manual/en/timezones.php      =
+						=============================================*/
+						date_default_timezone_set("America/Mexico_City");
 
-						</script>';
+						$fecha = date('Y-m-d');
+						$hora = date('H:m:s');
+						$fechaActual = $fecha.' '.$hora;
+
+						$item1 = "ultimo_login";
+						$valor1 = $fechaActual;
+
+						$item2 = "id";
+						$valor2 = $respuesta['id'];
+
+						$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
+
+						if($ultimoLogin == "ok");
+
+							echo '<script>
+		                        window.location = "inicio";
+
+							</script>';
 					}else{
 						echo '<br><div class="alert alert-danger">:**** El usuario aún no está activado</div>';
 					}
@@ -53,7 +73,8 @@ class ControladorUsuarios{
 	static public function crtCrearUsuario(){
 		if(isset($_POST["nuevoUsuario"])){
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
+			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) && 
+			    preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])){
 				
 				/*=============================================
@@ -170,7 +191,7 @@ class ControladorUsuarios{
 	/*=============================================
 	=            Editar usuario            =
 	=============================================*/
-	public function ctrEditarUsuario(){
+	static public function ctrEditarUsuario(){
 
 		if(isset($_POST["editarUsuario"])){
 
@@ -304,6 +325,47 @@ class ControladorUsuarios{
 								});
 						</script>';
 				}
+			}
+		}
+	}
+	# ======================================
+	# =           BORRAR USUARIO
+	# ======================================
+	static public function ctrBorrarUsuario(){
+
+		if(isset($_GET["idUsuario"])){
+
+			echo("<script>console.log('PHP111**idUsuario**** " .$_GET["idUsuario"]. "');</script>");
+			echo("<script>console.log('PHP111**fotoUsuario**** " .$_GET["fotoUsuario"]. "');</script>");
+			echo("<script>console.log('PHP111**usuario**** " .$_GET["usuario"]. "');</script>");
+// LA VARIABLE foto NO TIENE NADA
+			$tabla = "usuarios";
+			$datos = $_GET["idUsuario"];
+
+			if($_GET["fotoUsuario"] != ""){
+
+				unlink($_GET["fotoUsuario"]);
+				rmdir('vistas/img/usuarios/'.$_GET["usuario"]);
+			}
+
+			$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla, $datos);
+
+			if($respuesta == "ok"){
+				echo '<script>
+
+						swal.fire({
+							icon: "success",
+							title: "¡El usuario ha sido borrado correctamente!",
+							showConfirmButton: true,
+							confirmButtonText: "Cerrar",
+							closeOnConfirm: false
+
+							}).then((result)=>{
+								if(result.value){
+									window.location = "usuarios";
+								}
+							});
+				</script>';
 			}
 		}
 	}

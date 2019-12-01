@@ -36,10 +36,25 @@ class AjaxUsuarios{
 
 		$respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
 	}
+
+	/*====================================================================
+	=            validar si el usario esta creado previamente            =
+	====================================================================*/
+	// Variable publica
+	public $validarUsuario;
+
+	public function ajaxValidarUsuario(){
+
+			$item = "usuario";
+			$valor = $this->validarUsuario;
+
+			$respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+			echo json_encode($respuesta);
+	}
 }
-	/*=============================================
-	=            EDIATAR USUARIOS           =
-	=============================================*/
+/*=============================================
+=            EDIATAR USUARIOS           =
+=============================================*/
 if(isset($_POST["idUsuario"])) {
 // echo("<script>console.log('PHP: " . $_POST["idUsuario"] . "');</script>");
 	$editar = new AjaxUsuarios();
@@ -57,6 +72,18 @@ if(isset($_POST["activarUsuario"])){
 	$activarUsuario -> activarId = $_POST["activarId"];
 	$activarUsuario -> ajaxActivarUsuario();
 	
+}
+
+/*====================================================================
+=            validar si el usario esta creado previamente            =
+====================================================================*/
+
+if(isset($_POST["validarUsuario"])){
+
+// echo("<script>console.log('PHP: " . $_POST["validarUsuario"] . "');</script>");
+	$valUsuario = new AjaxUsuarios();
+	$valUsuario -> validarUsuario = $_POST["validarUsuario"];
+	$valUsuario -> ajaxValidarUsuario();
 }
 
 ?>

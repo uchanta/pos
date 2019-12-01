@@ -84,7 +84,6 @@ $(document).on("click", ".btnEditarUsuario", function(){
 /*=============================================
 =            Activar usuario                  =
 =============================================*/
-// $(".btnActivar").
 
 $(document).on("click", ".btnActivar", function(){
 
@@ -119,9 +118,82 @@ $(document).on("click", ".btnActivar", function(){
 		$(this).removeClass('btn-danger');
 		$(this).html('Activado');
 		$(this).attr('estadoUsuario',0);
-
-
-
 	}
+})
 
-});
+/*=============================================
+=       revisar si el usuario esta creado     =
+=============================================*/
+$("#nuevoUsuario").change(function(){
+
+	// Para borrar cualquier alert ya existente y que no se duplique la inicializaremos
+	$(".alert").remove();
+
+	var usuario = $(this).val();
+
+// !!!!debug ucz
+// console.log("!!!! ***usuario***>>>", usuario);
+
+	var datos = new FormData();
+	datos.append("validarUsuario", usuario);
+
+	$.ajax({
+
+		url: "ajax/usuarios.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+      	contentType: false,
+      	processData: false,
+      	dataType: "json",
+		success: function(respuesta){
+
+			// console.log("!!!!respuesta11111111111", respuesta);
+			
+			if(respuesta){
+				// console.log("!!!!respuesta dentro de if 2222222222----->  ", respuesta);
+
+				$("#nuevoUsuario").parent().after('<div class="alert alert-warning">Este usuario ya existe en la base de datos: </div>');
+				$("#nuevoUsuario").val("");
+			}
+		},	
+		error: function(jqxhr, status, exception) {
+	         console.log('jqxhr:', jqxhr);
+	         console.log('status:', status);
+	         console.log('Exception:', exception)
+		}
+
+	})
+})
+
+/*=============================================
+=       BORAR UN USUARIO ELIMINAR                     =
+=============================================*/
+// Funcion obsoleta
+// $(".btnEliminarUsuario").click(function(){
+
+$(document).on("click", ".btnEliminarUsuario", function(){
+	
+	var idUsuario = $(this).attr("idUsuario");
+	var fotoUsuario = $(this).attr("fotoUsuario");
+	var usuario = $(this).attr("usuario");
+
+	Swal.fire({
+		icon: "warning",
+		title: "¿Estas seguro de borrar el usuario?",
+		text: "¡Sino estas seguro cancela la accion, el usuario y su historia se perderan!",
+		showCancelButton: true,
+		confirmButtonText: "Si, borrar usuario!",
+		cancelButtonText: "No,Cancelar",
+		cancelButtonColor: "#d33",
+		confirmButtonColor: "#3085d6"
+			
+		
+	}).then((result)=>{
+			if(result.value){
+				window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&fotoUsuario="+fotoUsuario;
+			}
+		})
+})
+
+

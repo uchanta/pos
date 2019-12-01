@@ -83,6 +83,33 @@ class ModeloUsuarios{
 		$stmt -> close();
 		$stmt = null;
 	}
+
+	/*========================================
+	=     BORRAR USUARIOS            =
+	========================================*/
+
+	static public function mdlBorrarUsuario($tabla, $id){
+
+		echo("<script>console.log('PHP22222****tabla**** " .$tabla. "');</script>");
+	
+		// echo("<script>console.log('PHP22222****id**** " .$id. "');</script>");
+
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = $id");
+
+		$stmt -> bindParam(":id", $id, PDO::PARAM_STR);
+		
+		echo("<script>console.log('PHP22222****id**** " .$id. "');</script>");
+
+		if($stmt -> execute()){
+			return 'ok';
+		}else{
+			return 'error';
+		}
+		$stmt -> close();
+		$stmt = null;
+
+
+	}
 }
 
 ?>
