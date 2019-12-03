@@ -43,7 +43,7 @@ class ModeloUsuarios{
 		$stmt = null;
 	}	
 /*=============================================
-=            Section comment block            =
+=           EDITAR USUARIO                    =
 =============================================*/
 
 	static public function mdlEditarUsuario($tabla, $datos){
