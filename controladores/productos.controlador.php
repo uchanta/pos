@@ -1,13 +1,19 @@
 <?php
 
-/*
-class ControladorPlantilla{
+class ControladorProductos{
 
-	public function ctrPlantilla(){
+	/* 
+	MOSTRAR PRODUCTOS
+	*/
 
-		include "vistas/plantilla.php";
+	static public function ctrMostrarProductos($item, $valor){
+		
+		$tabla = "productos";
 
+		$respuesta = ModeloProductos::mdlMostrarProductos($tabla, $item, $valor);
+
+		return $respuesta;
+		
 	}
 
 }
-*/
