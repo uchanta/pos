@@ -207,5 +207,14 @@ $(document).on("click", ".btnEliminarUsuario", function(){
 		})
 })
 
+/*=============================================
+=       BORRAR PRODUCTO                  =
+=============================================*/
+$(".tablaProductos tbody").on("click", "button.btnEliminarProducto", function(){
+	
+	var idProducto = $(this).attr("idProducto");
+	console.log("idProducto", idProducto);
+
+})
 
 

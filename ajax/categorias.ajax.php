@@ -15,11 +15,11 @@ class AjaxCategorias{
 	public function ajaxEditarCategoria(){
 
 			$item = "id";
-			$valor = $this->idCategoria;
+			$valor = $this->idCategoria;	
 
 			$respuesta = ControladorCategorias::ctrMostrarCategorias($item, $valor);
 			echo json_encode($respuesta);
-	}
+					}
 }	
 /*=============================================
 =            EDIATAR categorias           =
@@ -29,8 +29,5 @@ if(isset($_POST["idCategoria"])) {
 	$categoria = new AjaxCategorias();
 	$categoria -> idCategoria = $_POST["idCategoria"];
 	$categoria -> ajaxEditarCategoria();
-
 }
-
-
 ?>
