@@ -75,14 +75,39 @@
         </div>
 
         <!-- MODAL BODY -->
-        <!-- ENTRADA PARA EL CODIGO -->
+
         <div class="modal-body">
           <div class="box-body">
 
+            <!-- seleccionar categoria -->
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <select class="form-control input-lg" id="nuevaCategoria" name="nuevaCategoria" required>
+                  <option value="">Seleccionar categoría</option>
+
+                    <?php
+                      $item = null;
+                      $valor = null;
+
+                      $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
+
+                      foreach($categorias as $key => $value){
+
+                        echo '<option value="'.$value["id"].'">'.$value["categoria"].'</option>';
+
+                      }
+                    ?>
+
+                </select>
+              </div>
+            </div>
+
+        <!-- ENTRADA PARA EL CODIGO -->
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-code"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoCodigo" placeholder="Ingresar codigo" required>
+                <input type="text" class="form-control input-lg" id="nuevoCodigo" name="nuevoCodigo" placeholder="Ingresar codigo" readonly required>
               </div>
             </div>
 
@@ -90,45 +115,34 @@
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
-                <input type="text" class="form-control input-lg" name="nuevoDescripcion" placeholder="Ingresar descripcion" required>
+                <input type="text" class="form-control input-lg" id="nuevaDescripcion" name="nuevaDescripcion" placeholder="Ingresar descripcion" required>
               </div>
             </div>
 
-            <!-- seleccionar categoria -->
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                <select class="form-control input-lg" name="nuevoCategoria">
-                  <option value="">Seleccionar categoria</option>
-                  <option value="Taladros">Taladros</option>
-                  <option value="Andamios">Andamios</option>
-                  <option value="Equipos para construccion">Equipos para construccion</option>
-                </select>
-              </div>
-            </div>
 
             <!-- ENTRADA PARA STOCK -->
             <div class="form-group">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-check"></i></span>
-                  <input type="number" class="form-control input-lg" name="nuevoStock" min="0" placeholder="Stock" required>
+                  <input type="number" class="form-control input-lg" id="nuevoStock" name="nuevoStock" min="0" placeholder="Stock" required>
                 </div>
               </div>
 
             <!-- ENTRADA PARA PRECIO DE COMPRA -->
             <div class="form-group">
-              <div class="col-xs-6">
+            <!-- para que el campo no este tan pequeño en celular o tablet cambiamos de col-xs-6 a 12 -->
+              <div class="col-xs-12 col-sm-6">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
-                  <input type="number" class="form-control input-lg" name="nuevoPrecioCompra" min="0" placeholder="Precio de compra" required>
+                  <input type="number" class="form-control input-lg" id="nuevoPrecioCompra" name="nuevoPrecioCompra" min="0" step="any" placeholder="Precio de compra" required>
                 </div>
               </div>
 
               <!-- ENTRADA PARA PRECIO DE VENTA  -->
-              <div class="col-xs-6">
+              <div class="col-xs-12 col-sm-6">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
-                  <input type="number" class="form-control input-lg" name="nuevoPrecioVenta" min="0" placeholder="Precio de venta" required>
+                  <input type="number" class="form-control input-lg" id="nuevoPrecioVenta" name="nuevoPrecioVenta" min="0" step="any" placeholder="Precio de venta" required>
                 </div>
                 <br>
                   <!-- CHECK BOX PARA PORCENTAJE -->
@@ -154,9 +168,9 @@
             <!-- ENTRADA PARA SUBIR FOTO -->
             <div class="form-group">
               <div clas="panel">SUBIR IMAGEN</div>
-              <input type="file" id="nuevaFoto" name="nuevaFoto">
+              <input type="file" class="nuevaImagen" name="nuevaImagen">
               <p class="help-block">Peso maximo de la imagen 2Mb</p>
-              <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail" width="100px">
+              <img src="vistas/img/productos/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
 
             </div>
 
@@ -173,6 +187,12 @@
         </div>
 
       </form>
+        <?php
+          $crearProducto = new ControladorProductos();
+          $crearProducto -> ctrCrearProducto();       
+                      
+        ?>
+
     </div>
 
   </div>
