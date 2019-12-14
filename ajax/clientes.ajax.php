@@ -1,0 +1,35 @@
+<?php 
+
+require_once "../controladores/clientes.controlador.php";
+require_once "../modelos/clientes.modelo.php";
+
+class AjaxClientes{
+	/*=============================================
+	=            EDIATAR CLIENTES           =
+	=============================================*/
+	public $idCliente;
+
+	public function ajaxEditarCliente(){
+
+		$item = "id";
+		$valor = $this->idCliente;
+	
+		$respuesta = ControladorClientes::ctrMostrarClientes($item, $valor);
+		echo json_encode($respuesta);
+
+    }
+}   
+
+/*====================================================================
+=            EDITAR CLIENTE            =
+====================================================================*/
+
+if(isset($_POST["idCliente"])){
+
+    // echo("<script>console.log('PHP: " . $_POST["validarUsuario"] . "');</script>");
+        $cliente = new AjaxClientes();
+        $cliente -> idCliente = $_POST["idCliente"];
+        $cliente -> ajaxEditarCliente();
+    }
+
+?>
