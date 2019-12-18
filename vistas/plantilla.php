@@ -79,8 +79,14 @@
   <script src="vistas/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
   <script src="vistas/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 
+  <!-- Jquery Number -->
+  <script src="vistas/plugins/jqueryNumber/jquerynumber.min.js"></script>
+
+
+
 </head>
   <!--===========================================
+  CUERPO DOCUMENTO
   = sidebar-collapse PARA CERRAR EL ARBOL DE LA IZQUIERDA HAMBURGER AREA=
   ============================================-->
  <!-- FastClick -->

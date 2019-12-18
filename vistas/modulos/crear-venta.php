@@ -112,7 +112,7 @@
                 </div>
 
                 <!-- ===========================================
-                ENTRADA PARA AGREGAR PRODUCTO
+                BOTON PARA AGREGAR PRODUCTO
                 =============================================-->
                 <div class="form-group row nuevoProducto">
 
@@ -123,7 +123,7 @@
                 BOTON PARA ADICIONAR PRODUCTO
                 =============================================-->
 
-                <button type="button" class="btn btn-default hidden-lg">Agregar producto</button>
+                <button type="button" class="btn btn-default hidden-lg btnAgregarProducto">Agregar producto</button>
                 <hr>
                 <div class="row">
 
@@ -145,7 +145,11 @@
                         <tr>
                           <td style="width: 50%">
                             <div class="input-group">
-                              <input type="number" min="0" class="form-control" id="nuevoImpuestoVenta" name="nuevoImpuestoVenta" placeholder="0" required>
+                              <input type="number" min="0" class="form-control input-lg" id="nuevoImpuestoVenta" name="nuevoImpuestoVenta" placeholder="0" required>
+
+                              <input type="hidden" name="nuevoPrecioImpuesto" id="nuevoPrecioImpuesto" required>
+
+                              <input type="hidden" name="nuevoPrecioNeto" id="nuevoPrecioNeto" required>
 
                               <span class="input-group-addon"><i class="fa fa-percent"></i></span>
 
@@ -158,7 +162,7 @@
 
                               <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
 
-                              <input type="number" min="1" class="form-control" id="nuevoTotalVenta" name="nuevoTotalVenta" placeholder="00000" readonly required>
+                              <input type="text" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="00000" readonly required>
 
                             </div>
 
@@ -187,9 +191,9 @@
                       
                       <select class="form-control" name="nuevoMetodoPago" id="nuevoMetodoPago" required>
                         <option value="">Seleccione método de pago</option>
-                        <option value="efectivo">Efectivo</option>
-                        <option value="tarjetaCredito">Tarjeta Crédito</option>
-                        <option value="tarjetaDebito">Tarjeta Débito</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="TC">Tarjeta Crédito</option>
+                        <option value="TD">Tarjeta Débito</option>
                         <option value=""></option>
                       
                       </select>
@@ -197,8 +201,9 @@
                     </div>
                   
                   </div>
+                  <div class="cajasMetodoPago"></div>
 
-                  <div class="col-xs-6" style="padding-left:0px">
+                  <!-- <div class="col-xs-6" style="padding-left:0px">
                   
                     <div class="input-group">
 
@@ -208,7 +213,7 @@
 
                     </div>
                   
-                  </div>
+                  </div> -->
                   <br>
                 
                 </div>
