@@ -29,7 +29,7 @@
 
             <div class="box-body">
             
-              <div class="box"></div>
+              <div class="box">
 
                 <!-- ===========================================
                 ENTRADA DEL VENDEDOR 
@@ -88,7 +88,8 @@
 
                     <span class="input-group-addon"><i class="fa fa-users"></i></span>
 
-                    <select type="text" class="form-control" id="agregarCliente" name="agregarCliente" value="Agregar Cliente" readonly>
+                    <!-- <select type="text" class="form-control" id="agregarCliente" name="agregarCliente" value="Agregar Cliente" readonly> -->
+                    <select class="form-control" id="seleccionarCliente" name="seleccionarCliente" required>
 
                     <option value="">Seleccionar cliente</option>
 
@@ -112,12 +113,14 @@
                 </div>
 
                 <!-- ===========================================
-                BOTON PARA AGREGAR PRODUCTO
+                ENTRADA PARA AGREGAR PRODUCTO
                 =============================================-->
                 <div class="form-group row nuevoProducto">
 
 
                 </div>
+
+                <input type="hidden" name="listaProductos" id="listaProductos">
 
                 <!-- ===========================================
                 BOTON PARA ADICIONAR PRODUCTO
@@ -164,6 +167,9 @@
 
                               <input type="text" class="form-control input-lg" id="nuevoTotalVenta" name="nuevoTotalVenta" total="" placeholder="00000" readonly required>
 
+                              <!-- como se convierten los valores monetarios para subirlos a la bd -->
+                              <input type="hidden" name="totalVenta" id="totalVenta">
+
                             </div>
 
                           </td>
@@ -202,21 +208,12 @@
                   
                   </div>
                   <div class="cajasMetodoPago"></div>
-
-                  <!-- <div class="col-xs-6" style="padding-left:0px">
                   
-                    <div class="input-group">
-
-                      <input type="text" class="form-control" id="nuevoCodigoTransaccion" name="nuevoCodigoTransaccion" placeholder="Código transacción" required>
-
-                      <span class="input-group-addon"><i class="fa fa-lock" ></i></span>
-
-                    </div>
-                  
-                  </div> -->
+                  <input type="hidden" id="listaMetodoPago" name="listaMetodoPago">
+                  </div>
                   <br>
                 
-                </div>
+                
 
               </div>
 
@@ -228,9 +225,16 @@
 
           </form>
 
-        
+          <?php
+
+            $guardarVenta = new ControladorVentas();
+            $guardarVenta -> ctrCrearVenta();
+          
+          ?>
 
         </div>
+
+      </div>  
 
         <!-- ===========================================
         LA TABLA DE PRODUCTOS 
@@ -256,7 +260,7 @@
                     </tr>
                   </thead>
 
-                  </table>
+                </table>
 
               </div>
           
@@ -264,7 +268,7 @@
 
         </div>
 
-      </div>
+      
 
     </div>
 
